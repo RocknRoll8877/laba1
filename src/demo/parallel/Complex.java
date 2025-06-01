@@ -93,4 +93,26 @@ public class Complex {
     public double lengthSQ() {
         return re * re + im * im;
     }
+
+    public Complex minus(Complex comp) {
+        return comp;
+    }
+
+    // Возведение в квадрат
+    public Complex square() {
+        return this.times(this);
+    }
+
+    // Сопряжённое число
+    public Complex conjugate() {
+        return new Complex(re, -im);
+    }
+
+    // Деление комплексных чисел
+    public Complex divide(Complex other) {
+        double denominator = other.re * other.re + other.im * other.im;
+        double newRe = (this.re * other.re + this.im * other.im) / denominator;
+        double newIm = (this.im * other.re - this.re * other.im) / denominator;
+        return new Complex(newRe, newIm);
+    }
 }
