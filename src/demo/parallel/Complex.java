@@ -30,89 +30,57 @@
  */
 package demo.parallel;
 
-
-/**
- * A complex number is a number that can be expressed in the form a + b * i, where
- * a and b are real numbers and i is the imaginary unit, which satisfies the
- * equation i ^ 2 = -1. a is the real part and b is the imaginary part of the
- * complex number.
- * <p><i>
- * This source code is provided to illustrate the usage of a given feature
- * or technique and has been deliberately simplified. Additional steps
- * required for a production-quality application, such as security checks,
- * input validation and proper error handling, might not be present in
- * this sample code.</i>
- * @author Alexander Kouznetsov, Tristan Yan
- */
 public class Complex {
-    
-    private double re;   // the real part
-    private double im;   // the imaginary part
+    private final double re;   // действительная часть
+    private final double im;   // мнимая часть
 
-    /** 
-     * create a new object with the given real and imaginary parts
-     * 
-     * @param real a complex number real part
-     * @param imag a complex number imaginary part 
-     */
     public Complex(double real, double imag) {
-        re = real;
-        im = imag;
+        this.re = real;
+        this.im = imag;
     }
 
-    /**
-     * Add operation.
-     * @param b summand
-     * @return this Complex object whose value is (this + b)
-     */
     public Complex plus(Complex b) {
-        re += b.re;
-        im += b.im;
-        return this;
+        return new Complex(this.re + b.re, this.im + b.im);
     }
 
-    /**
-     * Multiply operation.
-     * @param  b multiplier
-     * @return this Complex object whose value is this * b
-     */
+    public Complex minus(Complex b) {
+        return new Complex(this.re - b.re, this.im - b.im);
+    }
+
     public Complex times(Complex b) {
-        Complex a = this;
-        double real = a.re * b.re - a.im * b.im;
-        double imag = a.re * b.im + a.im * b.re;
-        re = real;
-        im = imag;
-        return this;
+        double real = this.re * b.re - this.im * b.im;
+        double imag = this.re * b.im + this.im * b.re;
+        return new Complex(real, imag);
     }
 
-    /**
-     * Square of Complex object's length, we're using square of length to 
-     * eliminate the computation of square root
-     * @return square of length
-    */
-    public double lengthSQ() {
-        return re * re + im * im;
-    }
-
-    public Complex minus(Complex comp) {
-        return comp;
-    }
-
-    // Возведение в квадрат
     public Complex square() {
         return this.times(this);
     }
 
-    // Сопряжённое число
     public Complex conjugate() {
-        return new Complex(re, -im);
+        return new Complex(this.re, -this.im);
     }
 
-    // Деление комплексных чисел
     public Complex divide(Complex other) {
         double denominator = other.re * other.re + other.im * other.im;
         double newRe = (this.re * other.re + this.im * other.im) / denominator;
         double newIm = (this.im * other.re - this.re * other.im) / denominator;
         return new Complex(newRe, newIm);
+    }
+
+    public double lengthSQ() {
+        return re * re + im * im;
+    }
+
+    public double getRe() {
+        return re;
+    }
+
+    public double getIm() {
+        return im;
+    }
+
+    public void sin() {
+        // можно реализовать позже, если нужно
     }
 }
